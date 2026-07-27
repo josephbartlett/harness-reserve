@@ -1,0 +1,555 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://harness-reserve.local/schemas/run-receipt.schema.json",
+  "title": "Harness Reserve aggregate run receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "runtime_version",
+    "run_id",
+    "timestamps",
+    "project",
+    "invocation",
+    "authority",
+    "execution",
+    "integrity",
+    "repository_before",
+    "repository_after",
+    "result",
+    "privacy"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": 1
+    },
+    "runtime_version": {
+      "$ref": "#/definitions/runtimeVersion"
+    },
+    "run_id": {
+      "$ref": "#/definitions/runId"
+    },
+    "timestamps": {
+      "$ref": "#/definitions/timestamps"
+    },
+    "project": {
+      "$ref": "#/definitions/project"
+    },
+    "invocation": {
+      "$ref": "#/definitions/invocation"
+    },
+    "authority": {
+      "$ref": "#/definitions/authority"
+    },
+    "execution": {
+      "$ref": "#/definitions/execution"
+    },
+    "integrity": {
+      "$ref": "#/definitions/integrity"
+    },
+    "repository_before": {
+      "$ref": "#/definitions/repositoryState"
+    },
+    "repository_after": {
+      "$ref": "#/definitions/repositoryState"
+    },
+    "result": {
+      "$ref": "#/definitions/result"
+    },
+    "privacy": {
+      "$ref": "#/definitions/privacy"
+    }
+  },
+  "definitions": {
+    "runtimeVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[-_.][a-z0-9]+)*$"
+    },
+    "actionId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "not": {
+        "anyOf": [
+          {
+            "pattern": "^[A-Za-z]:"
+          },
+          {
+            "pattern": "^[/\\\\]"
+          },
+          {
+            "pattern": "(^|[/\\\\])\\.\\.([/\\\\]|$)"
+          },
+          {
+            "pattern": ":"
+          },
+          {
+            "pattern": "\\u0000"
+          }
+        ]
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "outcome": {
+      "enum": [
+        "PASS",
+        "DEGRADED",
+        "BLOCK",
+        "ERROR"
+      ]
+    },
+    "projectState": {
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "BLOCKED",
+        "STALE",
+        "UNCONFIGURED",
+        "UNKNOWN"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "filesystem",
+        "network",
+        "git",
+        "external_systems",
+        "secrets",
+        "semantic_authority"
+      ],
+      "properties": {
+        "filesystem": {
+          "enum": [
+            "read-only",
+            "derived-only",
+            "workspace-write",
+            "unrestricted-project"
+          ]
+        },
+        "network": {
+          "enum": [
+            "none",
+            "loopback",
+            "private-lan",
+            "internet"
+          ]
+        },
+        "git": {
+          "enum": [
+            "none",
+            "read",
+            "write",
+            "publish"
+          ]
+        },
+        "external_systems": {
+          "enum": [
+            "none",
+            "read",
+            "write"
+          ]
+        },
+        "secrets": {
+          "enum": [
+            "none",
+            "read"
+          ]
+        },
+        "semantic_authority": {
+          "enum": [
+            "none",
+            "candidate",
+            "canonical"
+          ]
+        }
+      }
+    },
+    "timestamps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "started_at",
+        "finished_at"
+      ],
+      "properties": {
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?Z$"
+        },
+        "finished_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?Z$"
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "display_name",
+        "root"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "display_name": {
+          "type": "string",
+          "pattern": "\\S",
+          "not": {
+            "pattern": "[\\r\\n\\u0000]"
+          }
+        },
+        "root": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "invocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "invoked_by",
+        "parameters"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/actionId"
+        },
+        "invoked_by": {
+          "enum": [
+            "human",
+            "local-model-intent"
+          ]
+        },
+        "parameters": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/definitions/id"
+          },
+          "additionalProperties": {
+            "type": [
+              "boolean",
+              "string",
+              "integer"
+            ]
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runner",
+        "entrypoint",
+        "working_directory",
+        "timeout_seconds",
+        "exit_code",
+        "timed_out",
+        "outcome"
+      ],
+      "properties": {
+        "runner": {
+          "enum": [
+            "python",
+            "powershell",
+            "executable"
+          ]
+        },
+        "entrypoint": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "working_directory": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "exit_code": {
+          "type": "integer"
+        },
+        "timed_out": {
+          "type": "boolean"
+        },
+        "outcome": {
+          "$ref": "#/definitions/outcome"
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_sha256",
+        "entrypoint_sha256",
+        "manifest_sha256_after",
+        "entrypoint_sha256_after",
+        "manifest_changed",
+        "entrypoint_changed"
+      ],
+      "properties": {
+        "manifest_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "entrypoint_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "manifest_sha256_after": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/sha256"
+            }
+          ]
+        },
+        "entrypoint_sha256_after": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/sha256"
+            }
+          ]
+        },
+        "manifest_changed": {
+          "type": "boolean"
+        },
+        "entrypoint_changed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "repositoryState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "is_repository",
+        "repository_root",
+        "project_root_matches_repository",
+        "branch",
+        "commit",
+        "dirty_path_count"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "is_repository": {
+          "type": "boolean"
+        },
+        "repository_root": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "project_root_matches_repository": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commit": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+            }
+          ]
+        },
+        "dirty_path_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "label",
+        "safe_to_share"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "label": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "path": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "safe_to_share": {
+          "const": true
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_state",
+        "safe_summary",
+        "warnings",
+        "safe_evidence",
+        "evidence_count",
+        "safe_evidence_count",
+        "private_evidence_count",
+        "next_action",
+        "action_result_present",
+        "action_result_valid"
+      ],
+      "properties": {
+        "project_state": {
+          "$ref": "#/definitions/projectState"
+        },
+        "safe_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1000
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        },
+        "safe_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/evidence"
+          }
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "safe_evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "private_evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "next_action": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "\\S",
+              "maxLength": 1000,
+              "not": {
+                "pattern": "\\u0000"
+              }
+            }
+          ]
+        },
+        "action_result_present": {
+          "type": "boolean"
+        },
+        "action_result_valid": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action_result_valid": {
+                "const": true
+              }
+            },
+            "required": [
+              "action_result_valid"
+            ]
+          },
+          "then": {
+            "properties": {
+              "action_result_present": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stdout_stored",
+        "stderr_stored",
+        "git_diff_stored",
+        "file_contents_stored"
+      ],
+      "properties": {
+        "stdout_stored": {
+          "const": false
+        },
+        "stderr_stored": {
+          "const": false
+        },
+        "git_diff_stored": {
+          "const": false
+        },
+        "file_contents_stored": {
+          "const": false
+        }
+      }
+    }
+  }
+}

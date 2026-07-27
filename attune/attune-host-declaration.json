@@ -1,0 +1,302 @@
+{
+  "authority_effect": "none",
+  "interface_version": "codex-host-state/v1",
+  "record_type": "attune-codex-host-integration-declaration",
+  "release_approved": false,
+  "schema_version": "0.1.0",
+  "static_binding": {
+    "canonicalization": "codex-host-binding-static/v1",
+    "digest": "c8c798651a31473a90169314360e8ce420ebc9ff6c1bef3613d71f92606557ba",
+    "digest_algorithm": "sha256",
+    "projection": {
+      "attune_source": {
+        "commit": "e55d1194a7da7899fcf601cccba2c941fe91876e",
+        "materialization": {
+          "materialized_root": ".attune/materialized/attune",
+          "mode": "git-object",
+          "object_repository": ".attune/vendor/attune.git",
+          "verify_commit": true,
+          "verify_tree": true
+        },
+        "object_format": "sha1",
+        "repository_url": "https://github.com/josephbartlett/attune-orchestration.git",
+        "tree": "8bfcb1125f69f957136207ec8755b499765a1bd4"
+      },
+      "authority_effect": "none",
+      "binding_id": "ATTUNE_BINDING-harness-reserve-001",
+      "command_preflight": {
+        "before_operations": [
+          "start",
+          "resume",
+          "delegate",
+          "freeze-subject",
+          "checkpoint",
+          "complete",
+          "check",
+          "status"
+        ],
+        "checks": {
+          "attune-commit-and-tree": true,
+          "attune-materialization": true,
+          "component-raw-byte-digests": true,
+          "compound-subject-identity": true,
+          "execution-file-closure": true,
+          "host-cleanliness": true,
+          "host-commit-and-tree": true,
+          "host-declaration-static-projection": true,
+          "host-integration-file-digests": true,
+          "interface-and-version": true,
+          "state-path-and-ignore-policy": true
+        },
+        "entrypoint": "adapters/codex/host-state/verify-binding.py",
+        "execution_mode": "attune-binding-verifier/v1",
+        "on_any_failure": "fail-closed"
+      },
+      "components": {
+        "adapter": {
+          "files": {
+            "bootstrap-host.py": {
+              "digest": "55463a08be2e519198d3d9f7a68688ea2f98a8792797abcdbec7b7e5332bad95",
+              "digest_algorithm": "sha256"
+            },
+            "host-binding.schema.json": {
+              "digest": "fb00e9831abe648eaddbb73bc4908d925bfeb5e56ca954d008a288f76ccb10aa",
+              "digest_algorithm": "sha256"
+            },
+            "host-declaration.schema.json": {
+              "digest": "c884c6793c15c97784d4b62023267f2c37c0890e6209d3951d5e217864e267d3",
+              "digest_algorithm": "sha256"
+            },
+            "host-input.schema.json": {
+              "digest": "c0f373660fdb97fe2f374b207eb0b99b27e1389e5bfdacd5faab8382d0cd13d0",
+              "digest_algorithm": "sha256"
+            },
+            "host-state.schema.json": {
+              "digest": "34becbe5278bd65c2a9265097c5c5f814e3c99dfac4cf9f43adce07901f6de69",
+              "digest_algorithm": "sha256"
+            },
+            "run.py": {
+              "digest": "fdc8076d3d9298890fd78e54fa0624cc23099f1d71a968ec31b5ddc089031653",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune_codex_host_state/__init__.py": {
+              "digest": "a26bb81a80d17d794ceb390dc685fbf1986ae7feb36dc33f893ea4c98699837b",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune_codex_host_state/adapter.py": {
+              "digest": "52a7952c10373be41a30871ffdef1ede525e7ca0fce5c4396b02a9448d3614b6",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune_codex_host_state/binding.py": {
+              "digest": "725eb8f23c76e870d459ffed3642d8aa1f2ccb17074cdf5219f84c55220497d8",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune_codex_host_state/cli.py": {
+              "digest": "13e6e9f253c5fd893cd3a164a260ce4ec8920b94fde155fc3800bcd69d40affb",
+              "digest_algorithm": "sha256"
+            },
+            "verify-binding.py": {
+              "digest": "ffae513c4295ed6979f43ee767ec03f9b625bc7b2ada9baf07333ed19e537a3e",
+              "digest_algorithm": "sha256"
+            }
+          },
+          "implementation_version": "0.3.0",
+          "interface_version": "codex-host-state/v1",
+          "path": "adapters/codex/host-state"
+        },
+        "protocol_schemas": {
+          "files": {
+            "attune-event.schema.json": {
+              "digest": "50b6e4b2e7ac797be89f8540d6adcb834a50ff493816a7694802d37148753aa4",
+              "digest_algorithm": "sha256"
+            },
+            "attunement-profile.schema.json": {
+              "digest": "24d39193b518f1fcb768a2f6f6ca61063768bb81954de4eba108f378e5ffc4e3",
+              "digest_algorithm": "sha256"
+            },
+            "checkpoint.schema.json": {
+              "digest": "17fea6cd49f48fd803f495608e00b6cd597906961f5c2464ab3d155a6492b5e0",
+              "digest_algorithm": "sha256"
+            },
+            "ckr-packet.schema.json": {
+              "digest": "87e36b4013c3a6fd547ba367fc3eea1810851243622861e61957afbe092013c8",
+              "digest_algorithm": "sha256"
+            },
+            "evidence-record.schema.json": {
+              "digest": "074cc654eac939237ba8979da43ec43a848819528a68bab89a53267a174327b2",
+              "digest_algorithm": "sha256"
+            },
+            "field-report.schema.json": {
+              "digest": "7efd4a176a867dd3c154d3e247d7b82be859359ab842108f833c1298882d088f",
+              "digest_algorithm": "sha256"
+            },
+            "instruction-lifecycle.schema.json": {
+              "digest": "ea3d8b588cf8ce70aba58936d7f60cd52296882851436a7bd0d910a98bc5809e",
+              "digest_algorithm": "sha256"
+            },
+            "intent-charter.schema.json": {
+              "digest": "9152b8f1a8ca7f3f3e7a8f19d7d3920101291ab368fc9aac1cc8ef64e8236bf4",
+              "digest_algorithm": "sha256"
+            },
+            "intervention-event.schema.json": {
+              "digest": "0ba372a65e50ff6ba255bb19aa3a391e862cf7594b4d5c93f979b6759ca21b91",
+              "digest_algorithm": "sha256"
+            },
+            "master-gate.schema.json": {
+              "digest": "2ad334cc0cd8fb1becfb2b09cfcdfba48e58dadb232c9df6d99316e5879e0d47",
+              "digest_algorithm": "sha256"
+            }
+          },
+          "path": "schemas"
+        },
+        "reference_runtime": {
+          "files": {
+            "src/attune/__init__.py": {
+              "digest": "f8738ee6ed8004e7c33f53383a2804f71ebcef686e5924ad05099dbcefb21d6c",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/bootstrap.py": {
+              "digest": "6e20c1ff1bd21ac4aeab0031f78244b2b4724248d3676e4ce66fed2ce5a05f8c",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/canonical.py": {
+              "digest": "dfa796db60b9830053e83cc0d0ed7bec5e8544bc1f92dfcd324b7c476b6a4963",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/continuity.py": {
+              "digest": "4548fc271d8851f2e5a1b07a810b6118ac680eaeb1c059b3bf63b210af1bfa28",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/contracts.py": {
+              "digest": "3bffc27a68120aec37c9f7e454c9f192b32da3c1c342bf0cd12e0710976bb673",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/errors.py": {
+              "digest": "47ae7fe8b9693237c77472775a5a5e30c2dc46f9dfd903c829ccd9c13f294554",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/field_report_packet.py": {
+              "digest": "ad5cb17cee1d0695e06e8bb9031da6ede060e82f74d96cfa70da0e7f6ad981d7",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/gates.py": {
+              "digest": "af1b0dedcd82e8843aee66961fa0b9bde505d18edc153bcdc3cb3f87f9863602",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/identifiers.py": {
+              "digest": "14ca4694df3455d56dfb027df9acf7e2cfb01477c74342c45df7bbc33282b4a9",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/integrity.py": {
+              "digest": "f3741cfda2743d149fe2fcdc0872cd54ef07a0b194df3f2e0d990aae067a860e",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/lifecycle.py": {
+              "digest": "cd8dd6b5056a37c4b7e64c063d50fe0f4c2b54d81a3450bf71e426b996212d6e",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/observe.py": {
+              "digest": "b977bc4bb9c7d6a2b9061af367925cde31d12e57ca8da69d8e9fa3b47f58b71d",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/phases.py": {
+              "digest": "ded083eb595ca79ffce680fc09d4ec2aea93ef9bbd4bad6b983ff942ece8f431",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/reports.py": {
+              "digest": "c48a7571ca7aeb80be1543ed053e7d7b50d097eff203dfc63d37c9b1e405ae83",
+              "digest_algorithm": "sha256"
+            },
+            "src/attune/schema.py": {
+              "digest": "65c5ac98d8920a5aa62edb5589bc165bf71aac2f354dd60af5d5288ec6007ef0",
+              "digest_algorithm": "sha256"
+            }
+          },
+          "path": "reference/python"
+        }
+      },
+      "failure_and_removal": {
+        "commit_or_tree_mismatch": "fail-closed",
+        "component_digest_mismatch": "fail-closed",
+        "host_file_digest_mismatch": "fail-closed",
+        "interface_or_version_mismatch": "fail-closed",
+        "missing_binding": "fail-closed",
+        "missing_host_identity": "fail-closed",
+        "missing_materialization": "fail-closed",
+        "no_success_inference": true,
+        "removal": {
+          "action_required": "explicit-host-removal-action",
+          "binding_disposition": "remove-on-explicit-host-removal-action",
+          "ignored_state_authority": "separate-explicit-host-authority-required",
+          "ignored_state_disposition": "preserve",
+          "infer_success": false,
+          "materialized_attune_disposition": "remove-on-explicit-host-removal-action",
+          "product_state_effect": "none"
+        },
+        "state_mismatch": "fail-closed",
+        "subject_identity_mismatch": "fail-closed"
+      },
+      "host_repository_id": "harness-reserve",
+      "host_source": {
+        "commit": "@generated/clean-host-commit",
+        "files": {
+          "configuration": {
+            "digest": "8d156ae82fd09d4e2f08d02ff823a06cc7d21551e47cc0f733e3122f9c54ae94",
+            "digest_algorithm": "sha256",
+            "path": "attune/attune-host-config.json"
+          },
+          "integration_declaration": {
+            "digest": "@generated/tracked-declaration-raw-sha256",
+            "digest_algorithm": "sha256",
+            "path": "attune/attune-host-declaration.json"
+          },
+          "wrapper": {
+            "digest": "d3b1a9cba94dd56b58390b2e2ee819811a2355b3164a2977eb78ae69bab9ab44",
+            "digest_algorithm": "sha256",
+            "path": "tools/attune_host.py"
+          }
+        },
+        "object_format": "sha1",
+        "tree": "@generated/clean-host-tree"
+      },
+      "record_type": "attune-codex-host-binding",
+      "release_approved": false,
+      "schema_version": "0.2.0",
+      "state": {
+        "cas_mode": "prior-raw-bytes/v1",
+        "fixed": true,
+        "host_owned": true,
+        "ignore_policy": "git-check-ignore",
+        "ignored": true,
+        "locator": ".attune/state/codex-host-state.json",
+        "lock_host_owned": true,
+        "lock_locator": ".attune/state/codex-host-state.json.lock",
+        "lock_mode": "exclusive-create-preserve-foreign/v1",
+        "state_format": "codex-host-state-record/v1",
+        "write_mode": "atomic-replace"
+      },
+      "status": "provisional",
+      "subject_recipe": {
+        "adapter_projection": "committed-revision",
+        "artifact_sets": {
+          "host-config": {
+            "canonicalization": "raw-bytes/v1",
+            "digest": "8d156ae82fd09d4e2f08d02ff823a06cc7d21551e47cc0f733e3122f9c54ae94",
+            "digest_algorithm": "sha256",
+            "locator": "@host/attune/config"
+          }
+        },
+        "base_revision": "@derived/clean-host-commit",
+        "candidate_identity": {
+          "algorithm": "sha256",
+          "canonicalization": "codex-host-compound-artifact-set/v1",
+          "digest": "@derived/compound-subject-sha256"
+        },
+        "context_digest": null,
+        "kind": "compound-artifact-set",
+        "recipe": "codex-host-compound-artifact-set/v1"
+      }
+    }
+  },
+  "status": "provisional"
+}

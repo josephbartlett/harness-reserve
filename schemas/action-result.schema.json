@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://harness-reserve.local/schemas/action-result.schema.json",
+  "title": "Harness Reserve project action result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "outcome"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": 1
+    },
+    "outcome": {
+      "$ref": "#/definitions/outcome"
+    },
+    "safe_summary": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    },
+    "project_state": {
+      "$ref": "#/definitions/projectState"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 1000
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/evidence"
+      }
+    },
+    "next_action": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "\\S",
+          "maxLength": 1000,
+          "not": {
+            "pattern": "\\u0000"
+          }
+        }
+      ]
+    },
+    "extensions": {
+      "$ref": "#/definitions/extensions"
+    }
+  },
+  "definitions": {
+    "outcome": {
+      "enum": [
+        "PASS",
+        "DEGRADED",
+        "BLOCK",
+        "ERROR"
+      ]
+    },
+    "projectState": {
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "BLOCKED",
+        "STALE",
+        "UNCONFIGURED",
+        "UNKNOWN"
+      ]
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "not": {
+        "anyOf": [
+          {
+            "pattern": "^[A-Za-z]:"
+          },
+          {
+            "pattern": "^[/\\\\]"
+          },
+          {
+            "pattern": "(^|[/\\\\])\\.\\.([/\\\\]|$)"
+          },
+          {
+            "pattern": ":"
+          },
+          {
+            "pattern": "\\u0000"
+          }
+        ]
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "label",
+        "safe_to_share"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "label": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "path": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "safe_to_share": {
+          "type": "boolean"
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

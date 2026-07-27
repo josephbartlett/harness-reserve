@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a reproducible Harness Reserve defect using synthetic data.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include secrets, private project content, transcripts, raw command output, or protected data.
+        Use the Security tab for vulnerabilities.
+  - type: input
+    id: version
+    attributes:
+      label: Revision or version
+      description: Full commit SHA or released version.
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Windows with PowerShell 7
+        - Linux
+        - macOS
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Synthetic reproduction
+      description: Minimal steps and sanitized fixture details.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual aggregate outcome
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed secrets, private content, transcripts, file contents, and raw command output.
+          required: true

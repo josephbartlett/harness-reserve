@@ -1,0 +1,8 @@
+{
+  "contract_version": 1,
+  "project_id": "minimal-python-project",
+  "action": "status",
+  "parameters": {},
+  "reason": "Request the deterministic aggregate status action.",
+  "confidence": 1.0
+}

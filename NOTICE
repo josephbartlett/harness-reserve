@@ -1,0 +1,11 @@
+Harness Reserve
+Copyright (c) 2026 Joey Bartlett
+
+The tracked tools/attune_host.py file is generated from the ATTUNE Orchestration
+host-state template at commit e55d1194a7da7899fcf601cccba2c941fe91876e.
+That template lineage was authored by Joey Bartlett and originally distributed
+under Apache-2.0 in the private provisional ATTUNE repository. The copyright
+holder has selected the Harness Reserve MIT license for this generated copy.
+
+No ignored ATTUNE object cache, materialized runtime closure, binding, input,
+lock, or state is part of this distribution.

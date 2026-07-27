@@ -1,0 +1,233 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  portable:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install jsonschema
+      - run: bash ./scripts/test.sh
+      - name: Exercise portable reference flows
+        env:
+          PYTHONPATH: src
+        run: |
+          set -euo pipefail
+          project="examples/minimal-python-project"
+          intent="$project/status.intent.json"
+
+          python -m harness_reserve --project-root "$project" list
+          python -m harness_reserve --project-root "$project" validate
+          python -m harness_reserve --project-root "$project" doctor
+          python -m harness_reserve --project-root "$project" run status
+          python -m harness_reserve --project-root "$project" run
+          python -m harness_reserve --project-root "$project" run process --params-json '{"item":"portable-ci","open-after":true}'
+          python -m harness_reserve --project-root "$project" run verify
+          python -m harness_reserve --project-root "$project" latest
+          python -m harness_reserve --project-root "$project" handoff
+
+          set +e
+          python -m harness_reserve --project-root "$project" run serve-private --params-json '{"minutes":5}'
+          blocked_code=$?
+          set -e
+          if [ "$blocked_code" -ne 20 ]; then
+            echo "Expected sensitive action to BLOCK with exit 20; got $blocked_code." >&2
+            exit 1
+          fi
+          python -m harness_reserve --project-root "$project" run serve-private --params-json '{"minutes":5}' --confirm
+
+          python -m harness_reserve --project-root "$project" --json dispatch-intent "$intent" |
+            python -c 'import json,sys; value=json.load(sys.stdin); assert value.get("dry_run") is True'
+          python -m harness_reserve --project-root "$project" dispatch-intent "$intent" --execute
+
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install jsonschema
+      - shell: pwsh
+        run: .\scripts\test.ps1
+      - name: Exercise native Windows reference and adapter flows
+        shell: pwsh
+        run: |
+          Set-StrictMode -Version Latest
+          $ErrorActionPreference = "Stop"
+          $PSNativeCommandUseErrorActionPreference = $false
+
+          function Invoke-ExpectedExit {
+            param(
+              [Parameter(Mandatory = $true)]
+              [string]$Label,
+              [Parameter(Mandatory = $true)]
+              [int]$Expected,
+              [Parameter(Mandatory = $true)]
+              [scriptblock]$Operation
+            )
+
+            & $Operation
+            $actual = $LASTEXITCODE
+            if ($actual -ne $Expected) {
+              throw "$Label returned exit $actual; expected $Expected."
+            }
+          }
+
+          $project = Join-Path $PWD "examples\minimal-python-project"
+          $intent = Join-Path $project "status.intent.json"
+
+          Invoke-ExpectedExit "list" 0 {
+            .\reserve.ps1 --project-root $project list
+          }
+          Invoke-ExpectedExit "validate" 0 {
+            .\reserve.ps1 --project-root $project validate
+          }
+          Invoke-ExpectedExit "doctor" 0 {
+            .\reserve.ps1 --project-root $project doctor
+          }
+          Invoke-ExpectedExit "status" 0 {
+            .\reserve.ps1 --project-root $project run status
+          }
+          Invoke-ExpectedExit "default action" 0 {
+            .\reserve.ps1 --project-root $project run
+          }
+          Invoke-ExpectedExit "typed process" 0 {
+            .\reserve.ps1 --project-root $project run process --params-json '{"item":"windows-ci","open-after":true}'
+          }
+          Invoke-ExpectedExit "verify" 0 {
+            .\reserve.ps1 --project-root $project run verify
+          }
+          Invoke-ExpectedExit "latest" 0 {
+            .\reserve.ps1 --project-root $project latest
+          }
+          Invoke-ExpectedExit "handoff" 0 {
+            .\reserve.ps1 --project-root $project handoff
+          }
+          Invoke-ExpectedExit "sensitive action without confirmation" 20 {
+            .\reserve.ps1 --project-root $project run serve-private --params-json '{"minutes":5}'
+          }
+          Invoke-ExpectedExit "confirmed sensitive action" 0 {
+            .\reserve.ps1 --project-root $project run serve-private --params-json '{"minutes":5}' --confirm
+          }
+
+          $dryRunJson = & .\reserve.ps1 --project-root $project --json dispatch-intent $intent
+          $dryRunCode = $LASTEXITCODE
+          if ($dryRunCode -ne 0) {
+            throw "Intent dry-run returned exit $dryRunCode; expected 0."
+          }
+          $dryRun = ($dryRunJson -join "`n") | ConvertFrom-Json
+          if ($dryRun.dry_run -ne $true) {
+            throw "Reference status intent did not remain a dry-run."
+          }
+          Invoke-ExpectedExit "intent execution" 0 {
+            .\reserve.ps1 --project-root $project dispatch-intent $intent --execute
+          }
+
+          Invoke-ExpectedExit "example harness.cmd default" 0 {
+            & (Join-Path $project "harness.cmd")
+          }
+          Invoke-ExpectedExit "example harness.cmd status" 0 {
+            & (Join-Path $project "harness.cmd") status
+          }
+          Invoke-ExpectedExit "example harness.cmd process" 0 {
+            & (Join-Path $project "harness.cmd") process
+          }
+          Invoke-ExpectedExit "example harness.cmd verify" 0 {
+            & (Join-Path $project "harness.cmd") verify
+          }
+
+          $temporaryTarget = Join-Path $env:RUNNER_TEMP ("harness-reserve-adapter-" + [Guid]::NewGuid().ToString("N"))
+          New-Item -ItemType Directory -Path $temporaryTarget | Out-Null
+          Invoke-ExpectedExit "adapter initialization" 0 {
+            .\reserve.ps1 init --target $temporaryTarget --project-id "windows-ci-adapter" --display-name "Windows CI Adapter"
+          }
+
+          $hadReserveHome = Test-Path Env:HARNESS_RESERVE_HOME
+          $previousReserveHome = $env:HARNESS_RESERVE_HOME
+          try {
+            $env:HARNESS_RESERVE_HOME = $PWD.Path
+            Invoke-ExpectedExit "generated adapter status" 10 {
+              & (Join-Path $temporaryTarget "harness.cmd") status
+            }
+
+            $adapterLatestJson = & .\reserve.ps1 --project-root $temporaryTarget --json latest
+            $adapterLatestCode = $LASTEXITCODE
+            if ($adapterLatestCode -ne 0) {
+              throw "Generated adapter latest returned exit $adapterLatestCode; expected 0."
+            }
+            $adapterLatest = ($adapterLatestJson -join "`n") | ConvertFrom-Json
+            if ($adapterLatest.receipt.execution.outcome -ne "DEGRADED") {
+              throw "Generated adapter status did not report DEGRADED."
+            }
+            if ($adapterLatest.receipt.result.project_state -ne "UNCONFIGURED") {
+              throw "Generated adapter status did not report UNCONFIGURED."
+            }
+          }
+          finally {
+            if ($hadReserveHome) {
+              $env:HARNESS_RESERVE_HOME = $previousReserveHome
+            }
+            else {
+              [Environment]::SetEnvironmentVariable("HARNESS_RESERVE_HOME", $null, "Process")
+            }
+          }
+
+          Invoke-ExpectedExit "adapter overwrite refusal" 20 {
+            .\reserve.ps1 init --target $temporaryTarget --project-id "windows-ci-adapter" --display-name "Windows CI Adapter"
+          }
+
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install build twine
+      - run: python -m build
+      - run: python -m twine check dist/*
+      - name: Smoke-test the installed wheel and packaged adapter
+        run: |
+          set -euo pipefail
+          python -m venv "$RUNNER_TEMP/wheel-smoke"
+          "$RUNNER_TEMP/wheel-smoke/bin/python" -m pip install dist/*.whl
+          target="$RUNNER_TEMP/installed-adapter"
+          mkdir "$target"
+          "$RUNNER_TEMP/wheel-smoke/bin/harness-reserve" init \
+            --target "$target" \
+            --project-id installed-adapter \
+            --display-name "Installed Adapter"
+          "$RUNNER_TEMP/wheel-smoke/bin/harness-reserve" \
+            --project-root "$target" validate
+          export PATH="$RUNNER_TEMP/wheel-smoke/bin:$PATH"
+          set +e
+          pwsh -NoLogo -NoProfile -NonInteractive -File "$target/harness.ps1" status
+          status_code=$?
+          set -e
+          if [ "$status_code" -ne 10 ]; then
+            echo "Installed adapter status returned $status_code; expected DEGRADED exit 10." >&2
+            exit 1
+          fi

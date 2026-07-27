@@ -1,0 +1,615 @@
+{
+  "file_count": 121,
+  "files": [
+    {
+      "path": ".editorconfig",
+      "sha256": "43cfb7e49dc0d8e6c1d13655e5b193dda00bafbdd7f5b023992e29a37dabfdb1",
+      "size_bytes": 288
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "3dcf21e755e2645124e50e4c9fe9aeda7b7bbd6e288d38571b23c8a178209a15",
+      "size_bytes": 467
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "sha256": "73f1e248474d8610a1c693c735033430c1af747dccbf91c9ac9c44ce238c7d99",
+      "size_bytes": 1289
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "sha256": "ff00e1abd1c8fc28481f841cd356432d075ee6264739f4645f6bef4b24fdc0cd",
+      "size_bytes": 229
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "408abbeb3fb78cce167b200431268e3cc47b40b7b6ba0f158c9a819a571bde99",
+      "size_bytes": 193
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "e15c044679ace4bdf9850a3394a52b9cd63c25fad50e0c73e825ec2eb0dca565",
+      "size_bytes": 889
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "5fe6da9e0bc8c89668ec03c38a9a52b0d372abfb88eaba46dee850d653310250",
+      "size_bytes": 9494
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "9272400b3cd850fc8a2bdbbc0bd8247141b7851274f3718d8a2b7810a6a3195d",
+      "size_bytes": 364
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "4602c1d551f30aace6f310f8ef3c81c402a5d328c1bbfc1e3d014b73f4cc3cfb",
+      "size_bytes": 2084
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "sha256": "63dc5c483ac3900e8194257b7c43aacbe461155e000b1ffa1e92dfd989f749bf",
+      "size_bytes": 7853
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "a989a71c4fbf46321e5d2d6b228988bb83e277cee9ebc997cb2e468f9798f3bf",
+      "size_bytes": 1785
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "9789b74e6082324d4eaaddee5c9b61f19b2d7b35b9d7bcc1172cc392ec9a152f",
+      "size_bytes": 1950
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "c834000d35399877e9c14355465c5292039a82756343ca0083f1e9bc7376ee81",
+      "size_bytes": 1070
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "d112a17d0f2a08e3d1a2c2e2b3c1539acef405b4086e59246bcfcb0c6e6901ce",
+      "size_bytes": 560
+    },
+    {
+      "path": "README.md",
+      "sha256": "08ada172bd1143615899fddf2ede35783445b964e6f9753db7d1d4bad4132a74",
+      "size_bytes": 10193
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "3ab6609c2e5549dab1cfca17fefcbb7297cf55bf55a2d5416da6edde9ca2f3ab",
+      "size_bytes": 1413
+    },
+    {
+      "path": "VALIDATION.md",
+      "sha256": "8545cdea71b16f69e2b4b210e96699bf33e2901111f2eb53acf53e2211ecb31a",
+      "size_bytes": 9032
+    },
+    {
+      "path": "VERSION",
+      "sha256": "e9dd8507f4bf0c6f42458e41aea833ad0bd3f6127272335eee9bf4d58541ed67",
+      "size_bytes": 6
+    },
+    {
+      "path": "attune/attune-host-config.json",
+      "sha256": "8d156ae82fd09d4e2f08d02ff823a06cc7d21551e47cc0f733e3122f9c54ae94",
+      "size_bytes": 786
+    },
+    {
+      "path": "attune/attune-host-declaration.json",
+      "sha256": "103b12287fd47e06107234734411067990523c1f8977afac0f0afed89a019e12",
+      "size_bytes": 12694
+    },
+    {
+      "path": "docs/ADAPTER_PATTERNS.md",
+      "sha256": "5ab998070dc204038bf05c4da20c692404c2667c2d7f999648297d3cde2e0fd3",
+      "size_bytes": 11016
+    },
+    {
+      "path": "docs/ADOPTION.md",
+      "sha256": "505cd6f28927bac61ab9c0cd807cfa5c1f30e1f212745a3e9542d1b4eca73f50",
+      "size_bytes": 11052
+    },
+    {
+      "path": "docs/ATTUNE_COMPATIBILITY.md",
+      "sha256": "65de3cfc194dacad10f6035d81e1fc343a7bdf21ba29243715a25a0756cbed0d",
+      "size_bytes": 2809
+    },
+    {
+      "path": "docs/CONTRACT.md",
+      "sha256": "09339ac628e4c0cc4c56134e5240826dfb0ea7d3346ccce6d274e8317ae74a8b",
+      "size_bytes": 20498
+    },
+    {
+      "path": "docs/DESIGN.md",
+      "sha256": "8121e6ebfaa17164540926b3de7418412256620133c8c2fc3257aa416fd261f9",
+      "size_bytes": 21543
+    },
+    {
+      "path": "docs/LOCAL_MODEL_PROTOCOL.md",
+      "sha256": "369d5339ac44dd6df52d21f66fce4de35fae827d5bfb9918098d69b990209407",
+      "size_bytes": 10136
+    },
+    {
+      "path": "docs/MAINTAINING.md",
+      "sha256": "396b18f9a8f186d9bf41fe7108a57733dae6983c093a19e7521eb278019a419e",
+      "size_bytes": 3022
+    },
+    {
+      "path": "docs/PROJECT_STATE.md",
+      "sha256": "62116ec229a812b6439535f0cf3fe523094c6761c2fba9bf76150f86ce65acb9",
+      "size_bytes": 2060
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "sha256": "6b88316945a27cffa589975a4142d2bbcba4e1eaadd85a90bd06c1a45767d0f8",
+      "size_bytes": 3029
+    },
+    {
+      "path": "docs/SECURITY_MODEL.md",
+      "sha256": "7e9ed87be46db904b197c17d37ddace850ef79bd3dc05c3ea40b141ddac1728d",
+      "size_bytes": 15984
+    },
+    {
+      "path": "docs/decisions/0001-separate-operator-and-agent-planes.md",
+      "sha256": "fb61dd41b70e434c201cd6901ba0af2525ebc4bfcf69f7e0d53a95b2ea0e88a9",
+      "size_bytes": 393
+    },
+    {
+      "path": "docs/decisions/0002-project-owned-adapters.md",
+      "sha256": "01088487e22d0f9ca8ad2084dcd5567d66c6536a07839709e4863735535c7093",
+      "size_bytes": 345
+    },
+    {
+      "path": "docs/decisions/0003-no-arbitrary-shell.md",
+      "sha256": "91768d23f78c6747850a9975e627da2739b09673618c86f16c628778c3d418eb",
+      "size_bytes": 352
+    },
+    {
+      "path": "docs/decisions/0004-windows-launcher-boundary.md",
+      "sha256": "64edce7f07f14c1943b82350e2116f3ab671323d64769259ed0a4f7d92669c40",
+      "size_bytes": 2293
+    },
+    {
+      "path": "docs/decisions/0005-state-and-receipt-integrity.md",
+      "sha256": "a9c51abab3377d670b4a56a97f04ac8d63fbd61383d108ecf34f545b0141ce0d",
+      "size_bytes": 2195
+    },
+    {
+      "path": "docs/decisions/0006-provisional-attune-maintenance-binding.md",
+      "sha256": "fad0b17a15fe699a64e051d2aa5c5b31c8206ae9e3d3ac7bd372578fa138f243",
+      "size_bytes": 1760
+    },
+    {
+      "path": "docs/decisions/0007-fixed-loopback-open-weight-intent.md",
+      "sha256": "449b6a495e7aa8b0c696c57e97c533a29f8c44cf2eb68adc31a1a0d702ef936f",
+      "size_bytes": 4145
+    },
+    {
+      "path": "docs/exec-plans/active/0002-public-attune-gpt-oss.md",
+      "sha256": "8b3bd9fb0a5b3734f99910338a4be306235f0306438efdbc0b6497ea7a86d645",
+      "size_bytes": 2873
+    },
+    {
+      "path": "docs/exec-plans/completed/0001-foundation.md",
+      "sha256": "0e671cce21edbc30841505f6fe88f747d9471e186e749b93a91491ca909f9a3a",
+      "size_bytes": 6006
+    },
+    {
+      "path": "docs/quality/ACCEPTANCE.md",
+      "sha256": "1b03c6431e58700435cd3906da5a8bef4d1a680e287b7e8ba4050ac34ea281b2",
+      "size_bytes": 6033
+    },
+    {
+      "path": "examples/minimal-python-project/.gitignore",
+      "sha256": "5b27e3b01af5e552c43133280928452c704d2c09841295a4540ea09b20a583c6",
+      "size_bytes": 53
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/actions/common.py",
+      "sha256": "e666aeabc7d737cd44743be2cc966f19a4b4675a5be092b421a1c3d61113f8ce",
+      "size_bytes": 1113
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/actions/process.py",
+      "sha256": "1b3e2c626b0a2111e1917e220caa84fe117953d4b83544bf880d7faaa52c4884",
+      "size_bytes": 1438
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/actions/serve_private.py",
+      "sha256": "8e2eea26da83eb04f7f0d922cd651ddab1fbabc7f5af168851118b293f08b93f",
+      "size_bytes": 470
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/actions/status.py",
+      "sha256": "b264ab66e292dfe0b103cdc88f169a92faf9de01a2c69b8d4f97cf12c68ddcb9",
+      "size_bytes": 530
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/actions/use.py",
+      "sha256": "a7004e116481ddfec00daf712e582a321bfc9fb445c84696d170f3326a511860",
+      "size_bytes": 1069
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/actions/verify.py",
+      "sha256": "dca1c3fcf279c24f70cd2989b0cbe8372fc5430bcbf83d48485d89bb11d9e64e",
+      "size_bytes": 757
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/cmd-actions/process",
+      "sha256": "f972892069bac35918a6bb939ee13559ce6fac538e06594c589b56dd75033c68",
+      "size_bytes": 34
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/cmd-actions/status",
+      "sha256": "1eda366f64c3da119ff3046c116006d742d94897859768fed8a7e199c0712fc6",
+      "size_bytes": 14
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/cmd-actions/use",
+      "sha256": "ea46748e171abd2dd4dba5b86bb6589334d86bba2df8d50cbb16b36c83b0856a",
+      "size_bytes": 2
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/cmd-actions/verify",
+      "sha256": "6c87d8f8d85c6d62de25ea80ff14ee72d558afda63cf23d368f9a88a5040bb8e",
+      "size_bytes": 41
+    },
+    {
+      "path": "examples/minimal-python-project/.harness-reserve/operator.json",
+      "sha256": "b4a012cfee7fa21669d1e9a0fd4180fa15084226b851e08a498c628dce5e84a4",
+      "size_bytes": 4933
+    },
+    {
+      "path": "examples/minimal-python-project/README.md",
+      "sha256": "96b8f62ebbe7922d1d326f7002b19db13a5dc9b99b898bfb69198d2445d79dcc",
+      "size_bytes": 3954
+    },
+    {
+      "path": "examples/minimal-python-project/app.py",
+      "sha256": "3adbbf38762543692970b4fc7989b79900cfa3a0c7bcd244a45b4a0776686f52",
+      "size_bytes": 160
+    },
+    {
+      "path": "examples/minimal-python-project/harness.cmd",
+      "sha256": "923e356ab2b4ddef6efd2c7184f5d8dca8e301db8274077156346dd9990a4b39",
+      "size_bytes": 2674
+    },
+    {
+      "path": "examples/minimal-python-project/harness.ps1",
+      "sha256": "fc773f26c1b3af9a70787395f8c674a9d1ddd19b3927b477c58dfcd4bfb80f74",
+      "size_bytes": 629
+    },
+    {
+      "path": "examples/minimal-python-project/status.intent.json",
+      "sha256": "a8b182324e4819a04dc2806d1c1acb3bef1d0cdfa559e4c38723ea76a6d02240",
+      "size_bytes": 199
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "60cdd8ffcaac73377ab8781019fcc90cdfe15c7a67121bb6df2a66602c4456c3",
+      "size_bytes": 1651
+    },
+    {
+      "path": "reserve.cmd",
+      "sha256": "d75e98113992c971741f44976085462f3275157fe5bf48a558e25f96772c5dbc",
+      "size_bytes": 302
+    },
+    {
+      "path": "reserve.ps1",
+      "sha256": "9a6ead0a0c35c86e7b65f09c8c853f81f4dd44eae3579c9df5f7cca4896c4525",
+      "size_bytes": 2068
+    },
+    {
+      "path": "schemas/action-result.schema.json",
+      "sha256": "e7fcfa00a406f135e0a2e4a9726ebfd6a7bb789ed83190949274b34a76576750",
+      "size_bytes": 2710
+    },
+    {
+      "path": "schemas/candidate-manifest.schema.json",
+      "sha256": "cfc7fb9f7e79455613cbb9dd43c00174ebb22a20053decce1e7c9e1a9158d7bc",
+      "size_bytes": 5475
+    },
+    {
+      "path": "schemas/handoff-packet.schema.json",
+      "sha256": "f1c2a544f8bc9b62ea1a33c05462c0ad6391bdbce528fa8a6cf94f29434de88d",
+      "size_bytes": 7425
+    },
+    {
+      "path": "schemas/latest-pointer.schema.json",
+      "sha256": "0903ede471a9e8ef476c1b53886c95d805f6dbbc7c06e23656506f366c9d7be5",
+      "size_bytes": 1061
+    },
+    {
+      "path": "schemas/operator-intent.schema.json",
+      "sha256": "e59d9fefc769e38fbeab1195dfc74ca76cb1ba39bfce649715a935821715d5b3",
+      "size_bytes": 1106
+    },
+    {
+      "path": "schemas/operator-manifest.schema.json",
+      "sha256": "71ce8cdd0e572ad97e71f3d595fdfffa03a07aadcac9c2825a7345b32a53f615",
+      "size_bytes": 11712
+    },
+    {
+      "path": "schemas/run-receipt.schema.json",
+      "sha256": "ab1a8d527265396ef065d8134f7b28866bdc183d92da6bc8a589e9a5b02000ff",
+      "size_bytes": 11952
+    },
+    {
+      "path": "scripts/Install-HarnessReserve.ps1",
+      "sha256": "959c063d687bd468a14c934230d829eb5bdc4e6e612ba17e335f602ee58fe72a",
+      "size_bytes": 2996
+    },
+    {
+      "path": "scripts/build_scaffold_manifest.py",
+      "sha256": "2095e21c75b1929573769234ddb65bbc4b6bf6de0520cf65adf945621492db99",
+      "size_bytes": 2204
+    },
+    {
+      "path": "scripts/test.ps1",
+      "sha256": "017e1e1f5da155c8c6daa8aca90c1fc544a39e5eead2cca0495afbf93c2fe992",
+      "size_bytes": 2180
+    },
+    {
+      "path": "scripts/test.sh",
+      "sha256": "2776e8ecbabb811f5d4ccea0836c5315a4f9f7b4273539123b9bb7cfdc25e99e",
+      "size_bytes": 354
+    },
+    {
+      "path": "scripts/validate_scaffold.py",
+      "sha256": "3a33ae9bd36bbdc3f262bd46f44d7622cb58a79664d415f64f9f7bcb4f984285",
+      "size_bytes": 17311
+    },
+    {
+      "path": "src/harness_reserve/__init__.py",
+      "sha256": "40d3b0d11ddecfa95864da0c1084a54c911e9e58587743885affdec9876f1d16",
+      "size_bytes": 112
+    },
+    {
+      "path": "src/harness_reserve/__main__.py",
+      "sha256": "7ce97021d5d7afd92726ccccef44081596cec70e35669545a6f09d199d55b310",
+      "size_bytes": 84
+    },
+    {
+      "path": "src/harness_reserve/action_result.py",
+      "sha256": "a9e66f4797980504a13023db3c50f9d04eddbd2f79a8a1845793b1d4a9d22f73",
+      "size_bytes": 5157
+    },
+    {
+      "path": "src/harness_reserve/cli.py",
+      "sha256": "9d9189be9a116a94379bc7b783a9441859754e4dd8d81930deef2e7c479a4caa",
+      "size_bytes": 12755
+    },
+    {
+      "path": "src/harness_reserve/constants.py",
+      "sha256": "5233d1d5a2334f033e634b0ae1dd548a0d1cacb47ae14a2157905605bbb7aefe",
+      "size_bytes": 835
+    },
+    {
+      "path": "src/harness_reserve/discovery.py",
+      "sha256": "1305cedc9dd8071fc8c1d991e02b49e8e99c60f7cac8a4aaa1c75d55788ba71f",
+      "size_bytes": 2350
+    },
+    {
+      "path": "src/harness_reserve/doctor.py",
+      "sha256": "83040bf6237158ecf252833d6da75a9e6fa4e37d40d4336851a730289dbfe276",
+      "size_bytes": 3928
+    },
+    {
+      "path": "src/harness_reserve/errors.py",
+      "sha256": "410bda3893948e6a752a55d3ff10cd03161b49b677ed90ab84014cbbcbc308f2",
+      "size_bytes": 656
+    },
+    {
+      "path": "src/harness_reserve/git_state.py",
+      "sha256": "32e9fc8f8d84a5a8b42bc45456f2e11c0d812feb578439be4e28df3703e7b37c",
+      "size_bytes": 4406
+    },
+    {
+      "path": "src/harness_reserve/handoff.py",
+      "sha256": "ecaac5896bcf37324651d47e134c21078c68aeb0d6cca01ab4d69de9ccac0878",
+      "size_bytes": 4923
+    },
+    {
+      "path": "src/harness_reserve/init_project.py",
+      "sha256": "6533576d7684af55a1c7e1ea02718467e3ba2789ba80dbda0223238184f26539",
+      "size_bytes": 6705
+    },
+    {
+      "path": "src/harness_reserve/intent.py",
+      "sha256": "215206c3ba9a3aca837e7da1555e747a5b58b4b2757c0ad0e359a1b6056ac884",
+      "size_bytes": 3485
+    },
+    {
+      "path": "src/harness_reserve/local_model.py",
+      "sha256": "10826626ed9cbc9efc2614df47f8e761965d7eb17c8fc91712af229be8fb1668",
+      "size_bytes": 18971
+    },
+    {
+      "path": "src/harness_reserve/manifest.py",
+      "sha256": "3283c78c389815d8562020781f68f351b2b85285270273213818731c99372891",
+      "size_bytes": 23764
+    },
+    {
+      "path": "src/harness_reserve/policy.py",
+      "sha256": "c9e1e65541c24245795bb153c4f617a324229e2a10b3fb796d1fc1b14557bf27",
+      "size_bytes": 5002
+    },
+    {
+      "path": "src/harness_reserve/ps_bridge.py",
+      "sha256": "315644d4e7d25f0ee606e7ff95d2497be4e1e7a2017590df696ff725982bf48c",
+      "size_bytes": 837
+    },
+    {
+      "path": "src/harness_reserve/receipts.py",
+      "sha256": "280c3d6aa49b2a8755418380431aa22ba04909e305892ff66f54edbcda90a82f",
+      "size_bytes": 18345
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/README.md",
+      "sha256": "873abd8b2e34e8216bb5107eb47974be7e108feff8bc936e241cf34dbb5fe1d8",
+      "size_bytes": 1550
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/actions/Common.ps1",
+      "sha256": "e4fbf80ee2c44da3718a93849fb2e1701c5ed0b65828459a52309427ad9b9a92",
+      "size_bytes": 1192
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/actions/Get-HarnessStatus.ps1",
+      "sha256": "1ccc46b3346bb4ace43def9f1b12419ae8a3904580ddcfc4a477084eab2cf7a1",
+      "size_bytes": 436
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/actions/Process-HarnessInput.ps1",
+      "sha256": "8e0e02a8fc4003f90d037c2350e26babd5ea7189156b5ee32ea91f58c6256779",
+      "size_bytes": 460
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/actions/Use-Harness.ps1",
+      "sha256": "377df834748efdb13c6f7a707f860555c409d2ec77111640855c61f594f03cc1",
+      "size_bytes": 421
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/actions/Verify-Harness.ps1",
+      "sha256": "d4347ee9a0f695836984033f4d73e061942848a7e6fae41cd3b582f568999f9a",
+      "size_bytes": 439
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/cmd-actions/process",
+      "sha256": "f972892069bac35918a6bb939ee13559ce6fac538e06594c589b56dd75033c68",
+      "size_bytes": 34
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/cmd-actions/status",
+      "sha256": "1eda366f64c3da119ff3046c116006d742d94897859768fed8a7e199c0712fc6",
+      "size_bytes": 14
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/cmd-actions/use",
+      "sha256": "ea46748e171abd2dd4dba5b86bb6589334d86bba2df8d50cbb16b36c83b0856a",
+      "size_bytes": 2
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/cmd-actions/verify",
+      "sha256": "6c87d8f8d85c6d62de25ea80ff14ee72d558afda63cf23d368f9a88a5040bb8e",
+      "size_bytes": 41
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/gitignore.append",
+      "sha256": "2e16c77685023e882adf5f8cc347eff57cf569e9e728cc3c6ea16dab1a27bcfb",
+      "size_bytes": 105
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/.harness-reserve/operator.json",
+      "sha256": "14d513332a4cda5d6a41569369d6ce3c6e2dcbb0bba8ec459d2531a54dbadd9a",
+      "size_bytes": 3722
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/harness.cmd",
+      "sha256": "923e356ab2b4ddef6efd2c7184f5d8dca8e301db8274077156346dd9990a4b39",
+      "size_bytes": 2674
+    },
+    {
+      "path": "src/harness_reserve/resources/project-adapter/harness.ps1",
+      "sha256": "17b32169d163b74c3b69bf10d406f54a8b1601329fc821e7bfda5c1ccfa67b81",
+      "size_bytes": 1214
+    },
+    {
+      "path": "src/harness_reserve/runner.py",
+      "sha256": "08655f47dde46de9292091f5636e7709c5eb6a6e33ee839149370fb25758fe36",
+      "size_bytes": 17659
+    },
+    {
+      "path": "src/harness_reserve/util.py",
+      "sha256": "dd05d5e77efd7b322f779e1df468d7adc2136574390d6e0f338da32ca3f52be9",
+      "size_bytes": 7164
+    },
+    {
+      "path": "tests/support.py",
+      "sha256": "6820db0808927f14fbe97380cab5bb4f8948aa1a74715f295f705d8429ba3332",
+      "size_bytes": 1042
+    },
+    {
+      "path": "tests/test_action_result.py",
+      "sha256": "4b1439f835f4ed7e187ad776a33b1c715d88d9fefd44fabc904c4decc5046bd9",
+      "size_bytes": 2975
+    },
+    {
+      "path": "tests/test_discovery.py",
+      "sha256": "c75d750de3cf40e80af617b57d0fa3bb63b8fca735faacd980d56e80a7e9a7da",
+      "size_bytes": 1588
+    },
+    {
+      "path": "tests/test_doctor.py",
+      "sha256": "460f545f488302fa5de347cb453074921d0793a50e4b30af59d3dbd3807622f1",
+      "size_bytes": 1203
+    },
+    {
+      "path": "tests/test_handoff.py",
+      "sha256": "8a97c171ba0ef22b0f07ef09136f05d793bd6b5a8a8644863cfe5d31e42c2462",
+      "size_bytes": 2924
+    },
+    {
+      "path": "tests/test_init.py",
+      "sha256": "c6dd366de523b22987b55b0085cd48b489fba9955c7e5a0f89c0c7f5365cf9f7",
+      "size_bytes": 1828
+    },
+    {
+      "path": "tests/test_local_model.py",
+      "sha256": "a20fba769b38e0c182e0f92bb08bf228dfc8c7a8f9ec51cfd18bc9c1234454e4",
+      "size_bytes": 32748
+    },
+    {
+      "path": "tests/test_manifest.py",
+      "sha256": "708e3ef9319d99ebe8cccaa6f4491730bf576960ecac3624d780fb7767f9e7f5",
+      "size_bytes": 10888
+    },
+    {
+      "path": "tests/test_runner.py",
+      "sha256": "7ffe52f30ed9b9d8304691f029ce7f11144b578000e6f2897cb58d3c8efc8c19",
+      "size_bytes": 17472
+    },
+    {
+      "path": "tests/test_scaffold_hygiene.py",
+      "sha256": "203cdb0d526df094b99f0c019634ae2402f0738f16e9be006f19e941abc8a3a3",
+      "size_bytes": 4683
+    },
+    {
+      "path": "tests/test_security.py",
+      "sha256": "3df16b4e98d15ef0902838b9c269a161bc260eebb8da15effe31f563d17f477a",
+      "size_bytes": 5541
+    },
+    {
+      "path": "tests/test_security_paths.py",
+      "sha256": "435ae18537fb248664c844b64cbe15b54635111ea3dc6995ccd809cd225725ed",
+      "size_bytes": 12794
+    },
+    {
+      "path": "tests/test_security_policy_regressions.py",
+      "sha256": "86176e32062dcd5481b0f333e5068732dce80d263a8f0b371d52a45450cfc842",
+      "size_bytes": 11848
+    },
+    {
+      "path": "tests/test_security_receipt_regressions.py",
+      "sha256": "0522176c9d3d58dea042b6686ec4f0d33b87c2f8191ffef64d570b2fa6e04eaf",
+      "size_bytes": 11838
+    },
+    {
+      "path": "tests/test_windows_launchers.py",
+      "sha256": "5167cbd559d52f817b43653e37e31c6f7fa8c5e4e629c1505cab08553b9990e8",
+      "size_bytes": 16825
+    },
+    {
+      "path": "tools/attune_host.py",
+      "sha256": "d3b1a9cba94dd56b58390b2e2ee819811a2355b3164a2977eb78ae69bab9ab44",
+      "size_bytes": 12208
+    }
+  ],
+  "manifest_date": "2026-07-27",
+  "scaffold": "harness-reserve",
+  "schema_version": 1,
+  "self_excluded": "SCAFFOLD_MANIFEST.json",
+  "version": "0.1.0"
+}

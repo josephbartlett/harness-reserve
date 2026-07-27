@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "harness-reserve"
+version = "0.1.0"
+description = "A deterministic local operator contract with optional open-weight intent selection."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE", "NOTICE"]
+authors = [
+  { name = "Joey Bartlett" }
+]
+keywords = [
+  "developer-tools",
+  "gpt-oss",
+  "local-first",
+  "ollama",
+  "open-weights",
+  "operator",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development :: Build Tools",
+]
+dependencies = []
+
+[project.optional-dependencies]
+validation = ["jsonschema>=4.18"]
+
+[project.scripts]
+harness-reserve = "harness_reserve.cli:main"
+
+[project.urls]
+Documentation = "https://github.com/josephbartlett/harness-reserve#readme"
+Issues = "https://github.com/josephbartlett/harness-reserve/issues"
+Repository = "https://github.com/josephbartlett/harness-reserve"
+Security = "https://github.com/josephbartlett/harness-reserve/security/policy"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+harness_reserve = [
+  "resources/project-adapter/*",
+  "resources/project-adapter/.harness-reserve/*",
+  "resources/project-adapter/.harness-reserve/actions/*",
+  "resources/project-adapter/.harness-reserve/cmd-actions/*",
+]

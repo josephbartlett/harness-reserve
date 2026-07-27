@@ -1,0 +1,17 @@
+* text=auto eol=lf
+
+# Integrity hashes are over repository bytes, so all tracked text is normalized to LF.
+*.cmd text eol=lf
+*.ps1 text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+# ATTUNE CODEX HOST-STATE LF BEGIN
+/attune/attune-host-declaration.json text eol=lf
+/attune/attune-host-config.json text eol=lf
+/tools/attune_host.py text eol=lf
+# ATTUNE CODEX HOST-STATE LF END
