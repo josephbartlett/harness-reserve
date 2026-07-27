@@ -1,0 +1,325 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://harness-reserve.local/schemas/handoff-packet.schema.json",
+  "title": "Harness Reserve continuation packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "runtime_version",
+    "created_at",
+    "project",
+    "repository",
+    "latest_run",
+    "authority_boundaries",
+    "continuation"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": 1
+    },
+    "runtime_version": {
+      "$ref": "#/definitions/runtimeVersion"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{1,6})?Z$"
+    },
+    "project": {
+      "$ref": "#/definitions/project"
+    },
+    "repository": {
+      "$ref": "#/definitions/repositoryState"
+    },
+    "latest_run": {
+      "$ref": "#/definitions/latestRun"
+    },
+    "authority_boundaries": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "This packet grants no authority to commit, push, publish, deploy, or upload source.",
+          "Project instructions and current repository state remain authoritative.",
+          "Private action stdout, stderr, file contents, and Git diffs are intentionally absent.",
+          "Model-dependent interpretation must not be represented as deterministic operator evidence."
+        ]
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "This packet grants no authority to commit, push, publish, deploy, or upload source."
+          }
+        },
+        {
+          "contains": {
+            "const": "Project instructions and current repository state remain authoritative."
+          }
+        },
+        {
+          "contains": {
+            "const": "Private action stdout, stderr, file contents, and Git diffs are intentionally absent."
+          }
+        },
+        {
+          "contains": {
+            "const": "Model-dependent interpretation must not be represented as deterministic operator evidence."
+          }
+        }
+      ]
+    },
+    "continuation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recommended_next_action",
+        "prompt"
+      ],
+      "properties": {
+        "recommended_next_action": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "\\S",
+              "maxLength": 1000,
+              "not": {
+                "pattern": "\\u0000"
+              }
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "runtimeVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[0-9]{8}T[0-9]{6}Z-[0-9a-f]{8}$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[-_.][a-z0-9]+)*$"
+    },
+    "actionId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "not": {
+        "anyOf": [
+          {
+            "pattern": "^[A-Za-z]:"
+          },
+          {
+            "pattern": "^[/\\\\]"
+          },
+          {
+            "pattern": "(^|[/\\\\])\\.\\.([/\\\\]|$)"
+          },
+          {
+            "pattern": ":"
+          },
+          {
+            "pattern": "\\u0000"
+          }
+        ]
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "outcome": {
+      "enum": [
+        "PASS",
+        "DEGRADED",
+        "BLOCK",
+        "ERROR"
+      ]
+    },
+    "projectState": {
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "BLOCKED",
+        "STALE",
+        "UNCONFIGURED",
+        "UNKNOWN"
+      ]
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "display_name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "display_name": {
+          "type": "string",
+          "pattern": "\\S",
+          "not": {
+            "pattern": "[\\r\\n\\u0000]"
+          }
+        }
+      }
+    },
+    "repositoryState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "is_repository",
+        "repository_root",
+        "project_root_matches_repository",
+        "branch",
+        "commit",
+        "dirty_path_count"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "is_repository": {
+          "type": "boolean"
+        },
+        "repository_root": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "project_root_matches_repository": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commit": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+            }
+          ]
+        },
+        "dirty_path_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "label",
+        "safe_to_share"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "label": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "path": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "safe_to_share": {
+          "const": true
+        }
+      }
+    },
+    "latestRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "receipt_path",
+        "receipt_sha256",
+        "action",
+        "outcome",
+        "project_state",
+        "safe_summary",
+        "warning_count",
+        "safe_evidence"
+      ],
+      "properties": {
+        "run_id": {
+          "$ref": "#/definitions/runId"
+        },
+        "receipt_path": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "receipt_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "action": {
+          "$ref": "#/definitions/actionId"
+        },
+        "outcome": {
+          "$ref": "#/definitions/outcome"
+        },
+        "project_state": {
+          "$ref": "#/definitions/projectState"
+        },
+        "safe_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1000
+        },
+        "warning_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "safe_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/evidence"
+          }
+        }
+      }
+    }
+  }
+}

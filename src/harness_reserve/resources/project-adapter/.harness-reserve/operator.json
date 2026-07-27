@@ -1,0 +1,128 @@
+{
+  "contract_version": 1,
+  "runtime": {
+    "minimum_version": "0.1.0"
+  },
+  "project": {
+    "id": "__PROJECT_ID__",
+    "display_name": "__DISPLAY_NAME__",
+    "description": "Project-owned adapter for deterministic local operation.",
+    "platforms": [
+      "windows"
+    ]
+  },
+  "default_action": "status",
+  "state": {
+    "directory": ".harness-reserve/state",
+    "handoff_directory": ".harness-reserve/state/handoffs"
+  },
+  "actions": {
+    "status": {
+      "description": "Report aggregate project readiness without private content.",
+      "runner": "powershell",
+      "entrypoint": ".harness-reserve/actions/Get-HarnessStatus.ps1",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {},
+      "environment": {},
+      "timeout_seconds": 120,
+      "authority": {
+        "filesystem": "read-only",
+        "network": "none",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Status is read-only."
+      },
+      "model_invocable": false
+    },
+    "use": {
+      "description": "Launch or open the project's ordinary local user experience.",
+      "runner": "powershell",
+      "entrypoint": ".harness-reserve/actions/Use-Harness.ps1",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {},
+      "environment": {},
+      "timeout_seconds": 600,
+      "authority": {
+        "filesystem": "derived-only",
+        "network": "loopback",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Use starts only the ordinary local experience."
+      },
+      "model_invocable": false
+    },
+    "process": {
+      "description": "Run the project's known foreground input-processing workflow.",
+      "runner": "powershell",
+      "entrypoint": ".harness-reserve/actions/Process-HarnessInput.ps1",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {
+        "open-after": {
+          "type": "boolean",
+          "flag": "-OpenAfter",
+          "required": false,
+          "default": false,
+          "sensitive": false,
+          "description": "Open the local experience after processing only when project state permits."
+        }
+      },
+      "environment": {},
+      "timeout_seconds": 7200,
+      "authority": {
+        "filesystem": "derived-only",
+        "network": "none",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Processing delegates to the project-owned foreground pipeline."
+      },
+      "model_invocable": false
+    },
+    "verify": {
+      "description": "Run the project's ordinary non-destructive validation gate.",
+      "runner": "powershell",
+      "entrypoint": ".harness-reserve/actions/Verify-Harness.ps1",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {},
+      "environment": {},
+      "timeout_seconds": 3600,
+      "authority": {
+        "filesystem": "read-only",
+        "network": "none",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Verification is non-destructive."
+      },
+      "model_invocable": false
+    }
+  },
+  "constraints": {
+    "require_clean_git_for": [],
+    "forbid_model_actions_when_dirty": true,
+    "extensions": {}
+  },
+  "extensions": {}
+}

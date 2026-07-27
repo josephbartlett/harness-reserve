@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.venv/
+dist/
+build/
+*.egg-info/
+.coverage
+.pytest_cache/
+.mypy_cache/
+
+# Local runtime state used only when this repository is acting as a project fixture.
+.harness-reserve/state/
+.harness-reserve/candidates/
+
+# Editor and OS noise.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# ATTUNE CODEX HOST-STATE BEGIN
+/.attune/
+# ATTUNE CODEX HOST-STATE END

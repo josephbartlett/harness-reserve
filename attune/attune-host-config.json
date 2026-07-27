@@ -1,0 +1,18 @@
+{
+  "authority_effect": "none",
+  "binding_id": "ATTUNE_BINDING-harness-reserve-001",
+  "binding_path": ".attune/host-binding.json",
+  "configuration_path": "attune/attune-host-config.json",
+  "declaration_path": "attune/attune-host-declaration.json",
+  "governed_entrypoint": "adapters/codex/host-state/verify-binding.py",
+  "host_repository_id": "harness-reserve",
+  "interface_version": "codex-host-state/v1",
+  "lock_path": ".attune/state/codex-host-state.json.lock",
+  "materialized_attune_root": ".attune/materialized/attune",
+  "object_repository": ".attune/vendor/attune.git",
+  "record_type": "attune-codex-host-config",
+  "release_approved": false,
+  "schema_version": "0.1.0",
+  "state_path": ".attune/state/codex-host-state.json",
+  "wrapper_path": "tools/attune_host.py"
+}

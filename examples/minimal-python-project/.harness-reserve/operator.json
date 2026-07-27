@@ -1,0 +1,174 @@
+{
+  "$schema": "../../../schemas/operator-manifest.schema.json",
+  "contract_version": 1,
+  "runtime": {
+    "minimum_version": "0.1.0"
+  },
+  "project": {
+    "id": "minimal-python-project",
+    "display_name": "Minimal Python Project",
+    "description": "Executable reference adapter for Harness Reserve.",
+    "platforms": [
+      "windows",
+      "linux",
+      "macos"
+    ]
+  },
+  "default_action": "use",
+  "state": {
+    "directory": ".harness-reserve/state",
+    "handoff_directory": ".harness-reserve/state/handoffs"
+  },
+  "actions": {
+    "status": {
+      "description": "Report aggregate example readiness.",
+      "runner": "python",
+      "entrypoint": ".harness-reserve/actions/status.py",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {},
+      "environment": {},
+      "timeout_seconds": 60,
+      "authority": {
+        "filesystem": "read-only",
+        "network": "none",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Status is read-only."
+      },
+      "model_invocable": true
+    },
+    "use": {
+      "description": "Run the example app and record a local derived marker.",
+      "runner": "python",
+      "entrypoint": ".harness-reserve/actions/use.py",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {},
+      "environment": {},
+      "timeout_seconds": 60,
+      "authority": {
+        "filesystem": "derived-only",
+        "network": "none",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Use writes only ignored local runtime evidence."
+      },
+      "model_invocable": false
+    },
+    "process": {
+      "description": "Process one bounded example item.",
+      "runner": "python",
+      "entrypoint": ".harness-reserve/actions/process.py",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {
+        "item": {
+          "type": "string",
+          "flag": "--item",
+          "required": false,
+          "default": "default-item",
+          "sensitive": false,
+          "pattern": "^[A-Za-z0-9._-]{1,64}$",
+          "description": "Bounded example item name."
+        },
+        "open-after": {
+          "type": "boolean",
+          "flag": "--open-after",
+          "required": false,
+          "default": false,
+          "sensitive": false,
+          "description": "Run the example app after processing."
+        }
+      },
+      "environment": {},
+      "timeout_seconds": 60,
+      "authority": {
+        "filesystem": "derived-only",
+        "network": "none",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Processing writes only ignored derived state."
+      },
+      "model_invocable": false
+    },
+    "verify": {
+      "description": "Verify that the example app and adapter are present.",
+      "runner": "python",
+      "entrypoint": ".harness-reserve/actions/verify.py",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {},
+      "environment": {},
+      "timeout_seconds": 60,
+      "authority": {
+        "filesystem": "read-only",
+        "network": "none",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "none",
+        "prompt": "Verification is read-only."
+      },
+      "model_invocable": false
+    },
+    "serve-private": {
+      "description": "Demonstrate a private-LAN action that always requires confirmation.",
+      "runner": "python",
+      "entrypoint": ".harness-reserve/actions/serve_private.py",
+      "working_directory": ".",
+      "fixed_args": [],
+      "parameters": {
+        "minutes": {
+          "type": "integer",
+          "flag": "--minutes",
+          "required": false,
+          "default": 30,
+          "sensitive": false,
+          "minimum": 1,
+          "maximum": 120,
+          "description": "Bounded demonstration duration."
+        }
+      },
+      "environment": {},
+      "timeout_seconds": 60,
+      "authority": {
+        "filesystem": "derived-only",
+        "network": "private-lan",
+        "git": "read",
+        "external_systems": "none",
+        "secrets": "none",
+        "semantic_authority": "none"
+      },
+      "confirmation": {
+        "mode": "explicit",
+        "prompt": "Private-LAN exposure must be reviewed by a human."
+      },
+      "model_invocable": false
+    }
+  },
+  "constraints": {
+    "require_clean_git_for": [],
+    "forbid_model_actions_when_dirty": false,
+    "extensions": {}
+  },
+  "extensions": {}
+}

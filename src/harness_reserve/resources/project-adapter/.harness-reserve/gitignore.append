@@ -1,0 +1,3 @@
+# Harness Reserve local receipts and candidate work
+.harness-reserve/state/
+.harness-reserve/candidates/

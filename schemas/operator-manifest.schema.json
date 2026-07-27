@@ -1,0 +1,549 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://harness-reserve.local/schemas/operator-manifest.schema.json",
+  "title": "Harness Reserve operator manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "project",
+    "default_action",
+    "actions"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract_version": {
+      "const": 1
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum_version": {
+          "$ref": "#/definitions/runtimeVersion"
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "display_name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id"
+        },
+        "display_name": {
+          "type": "string",
+          "pattern": "\\S",
+          "not": {
+            "pattern": "[\\r\\n\\u0000]"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "platforms": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "windows",
+              "linux",
+              "macos"
+            ]
+          }
+        }
+      }
+    },
+    "default_action": {
+      "$ref": "#/definitions/actionId"
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "directory": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "handoff_directory": {
+          "$ref": "#/definitions/relativePath"
+        }
+      }
+    },
+    "actions": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/definitions/actionId"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/action"
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "require_clean_git_for": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/actionId"
+          }
+        },
+        "forbid_model_actions_when_dirty": {
+          "type": "boolean"
+        },
+        "extensions": {
+          "$ref": "#/definitions/extensions"
+        }
+      }
+    },
+    "extensions": {
+      "$ref": "#/definitions/extensions"
+    }
+  },
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[-_.][a-z0-9]+)*$"
+    },
+    "actionId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "runtimeVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "not": {
+        "anyOf": [
+          {
+            "pattern": "^[A-Za-z]:"
+          },
+          {
+            "pattern": "^[/\\\\]"
+          },
+          {
+            "pattern": "(^|[/\\\\])\\.\\.([/\\\\]|$)"
+          },
+          {
+            "pattern": ":"
+          },
+          {
+            "pattern": "\\u0000"
+          }
+        ]
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "filesystem",
+        "network",
+        "git",
+        "external_systems",
+        "secrets",
+        "semantic_authority"
+      ],
+      "properties": {
+        "filesystem": {
+          "enum": [
+            "read-only",
+            "derived-only",
+            "workspace-write",
+            "unrestricted-project"
+          ]
+        },
+        "network": {
+          "enum": [
+            "none",
+            "loopback",
+            "private-lan",
+            "internet"
+          ]
+        },
+        "git": {
+          "enum": [
+            "none",
+            "read",
+            "write",
+            "publish"
+          ]
+        },
+        "external_systems": {
+          "enum": [
+            "none",
+            "read",
+            "write"
+          ]
+        },
+        "secrets": {
+          "enum": [
+            "none",
+            "read"
+          ]
+        },
+        "semantic_authority": {
+          "enum": [
+            "none",
+            "candidate",
+            "canonical"
+          ]
+        }
+      }
+    },
+    "confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "none",
+            "explicit",
+            "phrase"
+          ]
+        },
+        "prompt": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "phrase": {
+          "type": "string",
+          "pattern": "\\S",
+          "not": {
+            "pattern": "\\u0000"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "phrase"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "phrase"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "phrase"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "parameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "flag"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean",
+            "string",
+            "integer",
+            "enum"
+          ]
+        },
+        "flag": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\s\\u0000]+$"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "default": {},
+        "sensitive": {
+          "type": "boolean"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "not": {
+              "pattern": "\\u0000"
+            }
+          }
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "boolean"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "default": {
+                "type": "boolean"
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "values"
+                  ]
+                },
+                {
+                  "required": [
+                    "minimum"
+                  ]
+                },
+                {
+                  "required": [
+                    "maximum"
+                  ]
+                },
+                {
+                  "required": [
+                    "pattern"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "string"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "default": {
+                "type": "string"
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "values"
+                  ]
+                },
+                {
+                  "required": [
+                    "minimum"
+                  ]
+                },
+                {
+                  "required": [
+                    "maximum"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "integer"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "default": {
+                "type": "integer"
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "values"
+                  ]
+                },
+                {
+                  "required": [
+                    "pattern"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "enum"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "values"
+            ],
+            "properties": {
+              "default": {
+                "type": "string"
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "minimum"
+                  ]
+                },
+                {
+                  "required": [
+                    "maximum"
+                  ]
+                },
+                {
+                  "required": [
+                    "pattern"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "runner",
+        "entrypoint",
+        "authority"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "runner": {
+          "enum": [
+            "python",
+            "powershell",
+            "executable"
+          ]
+        },
+        "entrypoint": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "working_directory": {
+          "$ref": "#/definitions/relativePath"
+        },
+        "fixed_args": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "not": {
+              "pattern": "\\u0000"
+            }
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/definitions/id"
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/parameter"
+          }
+        },
+        "environment": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "not": {
+              "pattern": "\\u0000"
+            }
+          }
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "authority": {
+          "$ref": "#/definitions/authority"
+        },
+        "confirmation": {
+          "$ref": "#/definitions/confirmation"
+        },
+        "model_invocable": {
+          "type": "boolean"
+        },
+        "extensions": {
+          "$ref": "#/definitions/extensions"
+        }
+      }
+    }
+  }
+}
